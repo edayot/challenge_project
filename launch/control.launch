@@ -3,7 +3,6 @@
     <!-- Launch color turtle -->
   <node pkg="challenge_project" name="pre_process_lsd" type="pre_process_lsd.py" output="screen" required="true"> </node>
 
-  <!-- <node pkg="mybot_teleop" name="teleop" type="mybot_teleop.py" 
-        output="screen" required="true"/> -->
+  <node pkg="mybot_teleop" name="teleop" type="mybot_teleop.py" output="screen" required="true"/>
   </launch>
   
