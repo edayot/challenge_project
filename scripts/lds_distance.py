@@ -10,19 +10,25 @@ from std_msgs.msg import Float32MultiArray, Float32
 
 def callback(msg : LaserScan):
     beam_angle = 30
-    beam_offset = 2
 
-    left : list = msg.ranges[360-(beam_angle-beam_offset+1):360-beam_offset] 
-    right : list =  msg.ranges[beam_offset:beam_angle + beam_offset]
+    front_list : list = msg.ranges[360-(beam_angle+1):] + msg.ranges[:beam_angle]
 
-    left_min = left.index(min(left))
-    left_max = left.index(max(left))
+    front_list = [x if x < 0.8 else 0 for x in front_list]
 
-    right_min = right.index(min(right))
-    right_max = right.index(min(right))
+    # set 0 to the middle of the list
+    n = len(front_list)
+    offset = 5
+    for i in range(n):
+        if n/2 - offset < i < n/2 + offset:
+            front_list[i] = 0
+        
 
 
-    angle = 0
+    
+
+    max_front_index = front_list.index(max(front_list))
+
+    angle = 0 - len(front_list) // 2 + max_front_index
 
     msg = Float32(angle)
     pub.publish(msg)

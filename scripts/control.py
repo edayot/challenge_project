@@ -25,8 +25,8 @@ def main():
 
     rospy.Subscriber("/distance", Float32, callback)
 
-    v_linear = 0.15
-    v_angular_factor = 1/15
+    v_linear = 0.3
+    v_angular_factor = 1/12
 
     while not rospy.is_shutdown():
         msg = Twist()
