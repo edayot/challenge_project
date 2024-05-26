@@ -1,4 +1,5 @@
 <launch>
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_burger -x 0.0 -y 0.0 -z 0.0 -Y 1.557 -param robot_description" />
 
     <!-- Launch color turtle -->
   <node pkg="challenge_project" name="pre_process_lsd" type="pre_process_lsd.py" output="screen" required="true"> </node>
