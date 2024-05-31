@@ -45,11 +45,11 @@ def main():
             v_angular = LAST_ANGLE * v_angular_factor
 
             v_linear = 0.1
-            last_distance_dim = 0.3
+            last_distance_dim = 0.35
             last_distance_min = 0.2
-            if LAST_DISTANCE < last_distance_dim:
+            if LAST_DISTANCE < last_distance_dim and LAST_DISTANCE > last_distance_min:
                 v_linear = v_linear * (LAST_DISTANCE - last_distance_min) / (last_distance_dim - last_distance_min)
-                v_angular = v_angular * (LAST_DISTANCE - last_distance_min) / (last_distance_dim - last_distance_min) * 1.75
+                v_angular = v_angular * (LAST_DISTANCE - last_distance_min) / (last_distance_dim - last_distance_min) /2
             msg.linear.x = v_linear
             msg.angular.z = v_angular
 
