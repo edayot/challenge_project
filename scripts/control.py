@@ -36,7 +36,7 @@ def main():
     rospy.Subscriber("/stop_robot", Float32, callback_stop)
     rospy.Subscriber("/line_detection", Float32, callback_line_detection)
 
-    v_angular_factor = 1/25
+    v_angular_factor = 1/30
 
     while not rospy.is_shutdown():
         msg = Twist()
@@ -44,16 +44,18 @@ def main():
         if LAST_LINE_DETECTION is None:
             v_angular = LAST_ANGLE * v_angular_factor
 
-            v_linear = 0.2
-            if LAST_DISTANCE < 0.2:
-                v_linear = 0
-                v_angular = 0
+            v_linear = 0.1
+            last_distance_dim = 0.3
+            last_distance_min = 0.2
+            if LAST_DISTANCE < last_distance_dim:
+                v_linear = v_linear * (LAST_DISTANCE - last_distance_min) / (last_distance_dim - last_distance_min)
+                v_angular = v_angular * (LAST_DISTANCE - last_distance_min) / (last_distance_dim - last_distance_min) * 1.75
             msg.linear.x = v_linear
             msg.angular.z = v_angular
 
             pub.publish(msg)
         else:
-            msg.linear.x = 0.4
+            msg.linear.x = 0.1
             msg.angular.z = - LAST_LINE_DETECTION * v_angular_factor / 2
             pub.publish(msg)
 

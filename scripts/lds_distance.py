@@ -46,11 +46,13 @@ def callback(msg : LaserScan):
     diff = min_left - min_right
     if diff != np.inf:
         angle = angle + diff * 200
+    if abs(min_left) < 0.4:
+        angle -= min_left * 20
+    if abs(min_right) < 0.4:
+        angle -= min_right * 20
 
     if n_infinity > 30:
         angle = angle / (n_infinity)
-    if n_infinity > 50:
-        angle = 0
     if np.isnan(angle):
         angle = 0
 

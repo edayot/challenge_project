@@ -8,21 +8,26 @@ import numpy as np
 from rich import inspect
 from PIL import Image as PILImage
 from std_msgs.msg import Float32
+from math import sqrt
 
+
+AS_BEEN_ON_LINE = 0
 
 def apply_color_filter(color : tuple[float,float,float]) -> bool:
-    if color[0] == color[1] == color[2]:
+    r,g,b = color
+    if r == b == g:
         return 0
-    if color[1] > 30 and color[0] < 20:
+    if g > 200 and r < 20 and b < 180:
         return 1
     return 0
     
     
-    
-N=0
+
 def callback(msg : Image):
+    global AS_BEEN_ON_LINE
     img = PILImage.frombytes("RGB", (msg.width, msg.height), msg.data)
     img = img.convert("RGB")
+    img.save("/home/erwan/catkin_ws/img.png")
     # remove red, blue channel
     img = np.array(img)
 
@@ -36,8 +41,20 @@ def callback(msg : Image):
             break
     if a:
         index = j - img.shape[1]//2
-        msg = Float32(index)
+        h = img.shape[0] - i
+        if h < 10:
+            AS_BEEN_ON_LINE = 1
+        if h >= 105 and not AS_BEEN_ON_LINE:
+            return
+        msg = Float32(index / h **(1/3))
         pub.publish(msg)
+        print(index, h)
+    if not a and AS_BEEN_ON_LINE > 0 and AS_BEEN_ON_LINE < 10:
+        AS_BEEN_ON_LINE += 1
+        msg = Float32(0)
+        pub.publish(msg)
+    if AS_BEEN_ON_LINE == 10:
+        AS_BEEN_ON_LINE = 0
 
 
     
