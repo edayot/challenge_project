@@ -34,19 +34,20 @@ def callback(msg : Image):
                 break
         if a:
             break
-    index = j - img.shape[1]//2
-    msg = Float32(index)
-    pub.publish(msg)
+    if a:
+        index = j - img.shape[1]//2
+        msg = Float32(index)
+        pub.publish(msg)
 
 
     
 
 
 def main():
-    rospy.init_node("stop_robot", anonymous=True)
+    rospy.init_node("camera_analysis", anonymous=True)
 
     global pub
-    pub = rospy.Publisher("/angle_to_center", Float32, queue_size=10)
+    pub = rospy.Publisher("/line_detection", Float32, queue_size=10)
 
     rospy.Subscriber("/camera/image", Image, callback)
     rospy.spin()
