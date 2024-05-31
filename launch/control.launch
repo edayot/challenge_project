@@ -5,6 +5,7 @@
   <node pkg="challenge_project" name="lds_distance" type="lds_distance.py" output="screen" required="true"> </node>
   <node pkg="challenge_project" name="stop_robot" type="stop_robot.py" output="screen" required="true"> </node>
   <node pkg="challenge_project" name="control" type="control.py" output="screen" required="true"> </node>
+  <node pkg="challenge_project" name="camera_analysis" type="camera_analysis.py" output="screen" required="true"> </node>
 
   </launch>
   

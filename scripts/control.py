@@ -37,7 +37,6 @@ def main():
         
         v_angular = LAST_ANGLE * v_angular_factor
 
-        print(LAST_DISTANCE)
         v_linear = 0.2
         if LAST_DISTANCE < 0.2:
             v_linear = 0
