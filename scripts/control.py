@@ -11,6 +11,7 @@ LAST_ANGLE = 0
 LAST_DISTANCE = np.inf
 
 LAST_LINE_DETECTION = None
+LAST_LINE_DETECTION_TIME = None
 
 
 def callback(msg : Float32):
@@ -23,12 +24,25 @@ def callback_stop(msg : Float32):
 
 def callback_line_detection(msg : Float32):
     global LAST_LINE_DETECTION
+    if LAST_LINE_DETECTION is None:
+        rospy.loginfo("Starting line following")
     LAST_LINE_DETECTION = msg.data
+    global LAST_LINE_DETECTION_TIME
+    LAST_LINE_DETECTION_TIME = rospy.get_time()
+
+def is_recent_line_detection():
+    global LAST_LINE_DETECTION_TIME
+    t = rospy.get_time()
+    if LAST_LINE_DETECTION_TIME is None:
+        return False
+    dt = t - LAST_LINE_DETECTION_TIME
+    return dt < 2
 
 
 
 
 def main():
+    global LAST_LINE_DETECTION
     pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
     rospy.init_node("control", anonymous=True)
 
@@ -41,7 +55,7 @@ def main():
     while not rospy.is_shutdown():
         msg = Twist()
         
-        if LAST_LINE_DETECTION is None:
+        if LAST_LINE_DETECTION == None:
             v_angular = LAST_ANGLE * v_angular_factor
 
             v_linear = 0.1
@@ -54,10 +68,13 @@ def main():
             msg.angular.z = v_angular
 
             pub.publish(msg)
-        else:
+        elif is_recent_line_detection():
             msg.linear.x = 0.1
             msg.angular.z = - LAST_LINE_DETECTION * v_angular_factor / 2
             pub.publish(msg)
+        else:
+            LAST_LINE_DETECTION = None
+            rospy.loginfo("Quitting line following")
 
 
 

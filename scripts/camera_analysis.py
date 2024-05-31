@@ -48,7 +48,6 @@ def callback(msg : Image):
             return
         msg = Float32(index / h **(1/3))
         pub.publish(msg)
-        print(index, h)
     if not a and AS_BEEN_ON_LINE > 0 and AS_BEEN_ON_LINE < 10:
         AS_BEEN_ON_LINE += 1
         msg = Float32(0)
