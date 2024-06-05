@@ -46,9 +46,9 @@ def main():
     pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
     rospy.init_node("control", anonymous=True)
 
-    rospy.Subscriber("/distance", Float32, callback)
-    rospy.Subscriber("/stop_robot", Float32, callback_stop)
-    rospy.Subscriber("/line_detection", Float32, callback_line_detection)
+    rospy.Subscriber("/wanted_angle_hallway", Float32, callback)
+    rospy.Subscriber("/front_distance", Float32, callback_stop)
+    rospy.Subscriber("/wanted_angle_line_detection", Float32, callback_line_detection)
 
     v_angular_factor = 1/30
 

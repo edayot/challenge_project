@@ -21,10 +21,10 @@ def callback(msg : LaserScan):
 
 
 def main():
-    rospy.init_node("stop_robot", anonymous=True)
+    rospy.init_node("hallway_front_distance", anonymous=True)
 
     global pub
-    pub = rospy.Publisher("/stop_robot", Float32, queue_size=10)
+    pub = rospy.Publisher("/front_distance", Float32, queue_size=10)
     rospy.Subscriber("/scan", LaserScan, callback)
     rospy.spin()
 

@@ -60,10 +60,10 @@ def callback(msg : Image):
 
 
 def main():
-    rospy.init_node("camera_analysis", anonymous=True)
+    rospy.init_node("line_detection", anonymous=True)
 
     global pub
-    pub = rospy.Publisher("/line_detection", Float32, queue_size=10)
+    pub = rospy.Publisher("/wanted_angle_line_detection", Float32, queue_size=10)
 
     rospy.Subscriber("/camera/image", Image, callback)
     rospy.spin()

@@ -2,10 +2,10 @@
   <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_burger -x 0.05 -y 0.0 -z 0.0 -Y 1.557 -param robot_description" />
 
     <!-- Launch color turtle -->
-  <node pkg="challenge_project" name="lds_distance" type="lds_distance.py" output="screen" required="true"> </node>
-  <node pkg="challenge_project" name="stop_robot" type="stop_robot.py" output="screen" required="true"> </node>
+  <node pkg="challenge_project" name="hallway" type="hallway.py" output="screen" required="true"> </node>
+  <node pkg="challenge_project" name="hallway_front_distance" type="hallway_front_distance.py" output="screen" required="true"> </node>
   <node pkg="challenge_project" name="control" type="control.py" output="screen" required="true"> </node>
-  <node pkg="challenge_project" name="camera_analysis" type="camera_analysis.py" output="screen" required="true"> </node>
+  <node pkg="challenge_project" name="line_detection" type="line_detection.py" output="screen" required="true"> </node>
 
   </launch>
   
