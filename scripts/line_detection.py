@@ -11,7 +11,7 @@ from std_msgs.msg import Float32
 from math import sqrt
 
 
-AS_BEEN_ON_LINE = 0
+AS_BEEN_ON_LINE = False
 
 def apply_color_filter(color : tuple[float,float,float]) -> bool:
     r,g,b = color
@@ -43,17 +43,15 @@ def callback(msg : Image):
         index = j - img.shape[1]//2
         h = img.shape[0] - i
         if h < 10:
-            AS_BEEN_ON_LINE = 1
+            AS_BEEN_ON_LINE = True
         if h >= 105 and not AS_BEEN_ON_LINE:
             return
         msg = Float32(index / h **(1/3))
         pub.publish(msg)
-    if not a and AS_BEEN_ON_LINE > 0 and AS_BEEN_ON_LINE < 10:
-        AS_BEEN_ON_LINE += 1
+    if not a and AS_BEEN_ON_LINE:
+        AS_BEEN_ON_LINE = False
         msg = Float32(0)
         pub.publish(msg)
-    if AS_BEEN_ON_LINE == 10:
-        AS_BEEN_ON_LINE = 0
 
 
     
