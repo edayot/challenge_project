@@ -5,10 +5,7 @@ import rospy
 
 from sensor_msgs.msg import Image
 import numpy as np
-from rich import inspect
-from PIL import Image as PILImage
 from std_msgs.msg import Float32
-from math import sqrt
 
 
 AS_BEEN_ON_LINE = False
@@ -25,9 +22,7 @@ def apply_color_filter(color : tuple[float,float,float]) -> bool:
 
 def callback(msg : Image):
     global AS_BEEN_ON_LINE
-    img = PILImage.frombytes("RGB", (msg.width, msg.height), msg.data)
-    img = img.convert("RGB")
-    img = np.array(img)
+    img = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, -1)
     a = False
     for i in range(img.shape[0]-1,0,-1):
         for j in range(img.shape[1]-1,0,-1):

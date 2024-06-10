@@ -81,7 +81,7 @@ def main():
             pub.publish(msg)
         else:
             rospy.loginfo("Quitting line following")
-            STOP = True
+            STOP = True # comment this line to keep the robot moving after line following
             LAST_LINE_DETECTION = None
 
 
