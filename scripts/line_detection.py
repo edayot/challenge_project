@@ -10,7 +10,7 @@ from std_msgs.msg import Float32
 
 AS_BEEN_ON_LINE = False
 
-def apply_color_filter(color : tuple[float,float,float]) -> bool:
+def apply_color_filter(color : tuple) -> bool:
     r,g,b = color
     if r == b == g:
         return 0

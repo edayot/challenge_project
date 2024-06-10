@@ -58,6 +58,8 @@
   <exec_depend>cv_bridge</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>turtlebot3_msgs</exec_depend>
+  <exec_depend>python-pandas</exec_depend>
+  <exec_depend>python-matplotlib</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

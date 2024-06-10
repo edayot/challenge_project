@@ -5,6 +5,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_msgs.msg import Float32MultiArray, Float32
 import numpy as np
+import time
 
 
 LAST_ANGLE = 0
@@ -57,6 +58,7 @@ def main():
 
     rate = rospy.Rate(100)
 
+    time.sleep(1)
     while not rospy.is_shutdown():
         rate.sleep()
         msg = Twist()
