@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <include file="$(find challenge_project)/launch/challenge.launch"></include>
+    <include file="$(find challenge_project)/launch/control_hallway.launch"></include>
+</launch>
