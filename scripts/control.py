@@ -82,7 +82,7 @@ def main():
         else:
             rospy.loginfo("Quitting line following")
             STOP = True
-
+            LAST_LINE_DETECTION = None
 
 
 

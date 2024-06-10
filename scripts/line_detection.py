@@ -27,10 +27,7 @@ def callback(msg : Image):
     global AS_BEEN_ON_LINE
     img = PILImage.frombytes("RGB", (msg.width, msg.height), msg.data)
     img = img.convert("RGB")
-    img.save("/home/erwan/catkin_ws/img.png")
-    # remove red, blue channel
     img = np.array(img)
-
     a = False
     for i in range(img.shape[0]-1,0,-1):
         for j in range(img.shape[1]-1,0,-1):
