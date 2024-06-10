@@ -55,7 +55,10 @@ def main():
 
     v_angular_factor = 1/30
 
+    rate = rospy.Rate(100)
+
     while not rospy.is_shutdown():
+        rate.sleep()
         msg = Twist()
         
         if STOP:

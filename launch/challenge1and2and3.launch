@@ -2,4 +2,5 @@
 <launch>
     <include file="$(find challenge_project)/launch/challenge.launch"></include>
     <include file="$(find challenge_project)/launch/control_all.launch"></include>
+    <node pkg="challenge_project" name="recording" type="recording.py" output="screen" required="true"> </node>
 </launch>
